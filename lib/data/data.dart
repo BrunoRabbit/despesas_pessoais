@@ -1,3 +1,3 @@
-import 'package:despesas_pessoais/model/transaction.dart';
+import 'package:despesas_pessoais/models/transaction.dart';
 
 List<Transaction> listTransaction = [];

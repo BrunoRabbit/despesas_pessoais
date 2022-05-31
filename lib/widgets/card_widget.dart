@@ -1,25 +1,27 @@
+import 'package:despesas_pessoais/controllers/global_controller.dart';
 import 'package:flutter/material.dart';
 
-import 'package:despesas_pessoais/controller/form_controller.dart';
 import 'package:despesas_pessoais/data/data.dart';
+import 'package:provider/provider.dart';
 
 class CardWidget extends StatelessWidget {
-  final FormController value;
-
   const CardWidget({
     Key? key,
-    required this.value,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    final GlobalController controller = Provider.of<GlobalController>(context);
     return Expanded(
       child: ListView.builder(
         itemCount: listTransaction.length,
         itemBuilder: (context, index) {
-          value.newName = listTransaction[index].name;
-          value.newData = listTransaction[index].data;
-          value.newPrice = listTransaction[index].price;
+          controller.newName = listTransaction[index].name;
+          controller.newData = listTransaction[index].date.toString();
+          controller.newPrice = listTransaction[index].price;
+
+          controller.newData =
+              controller.formatData.format(listTransaction[index].date);
 
           return Padding(
             padding: const EdgeInsets.symmetric(
@@ -40,7 +42,7 @@ class CardWidget extends StatelessWidget {
                     ),
                   ),
                 ),
-                onDismissed: (direction) => value.deleteItem(index),
+                onDismissed: (direction) => controller.deleteItem(index),
                 key: ValueKey(listTransaction[index].id),
                 child: ListTile(
                   leading: CircleAvatar(
@@ -49,7 +51,7 @@ class CardWidget extends StatelessWidget {
                       padding: const EdgeInsets.all(4.0),
                       child: FittedBox(
                         child: Text(
-                          'R\$ ${value.newPrice}',
+                          'R\$ ${controller.newPrice}',
                           style: const TextStyle(
                             color: Colors.white,
                             fontWeight: FontWeight.bold,
@@ -60,7 +62,7 @@ class CardWidget extends StatelessWidget {
                   ),
                   iconColor: Colors.blue,
                   title: Text(
-                    value.newName,
+                    controller.newName,
                     style: TextStyle(
                       color: Colors.black87.withOpacity(0.7),
                       fontWeight: FontWeight.bold,
@@ -68,17 +70,14 @@ class CardWidget extends StatelessWidget {
                     ),
                   ),
                   subtitle: Text(
-                    value.newData.replaceAll(' ', '/'),
+                    controller.newData,
                     style: TextStyle(
                       color: Colors.black87.withOpacity(0.6),
                       fontSize: 15,
                     ),
                   ),
                   trailing: InkWell(
-                    onTap: () {
-                      // value.updateValues(
-                      //     value.newName, value.newPrice, value.newData);
-                    },
+                    onTap: () {},
                     child: const Icon(
                       Icons.edit,
                       color: Colors.red,
@@ -93,16 +92,3 @@ class CardWidget extends StatelessWidget {
     );
   }
 }
-// **
-//  * // InkWell(
-                      //   onTap: () {},
-                      //   // onTap: () => editItem(index),
-                      //   child: const Icon(
-                      //     Icons.mode_edit_outline_rounded,
-                      //     color: Colors.red,
-                      //   ),
-                      // ),
-                      // const SizedBox(
-                      //   width: 15,
-                      // ),
-//  */

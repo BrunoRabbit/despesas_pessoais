@@ -1,13 +1,13 @@
 class Transaction {
   String id;
   String name;
-  String data;
+  DateTime date;
   double price;
 
   Transaction({
     required this.id,
     required this.name,
-    required this.data,
+    required this.date,
     required this.price,
   });
 }
