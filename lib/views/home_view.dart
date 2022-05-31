@@ -52,14 +52,14 @@ class _HomeViewState extends State<HomeView> {
       floatingActionButton: FloatingActionButton(
         child: const Icon(Icons.add),
         onPressed: () {
-          // Navigator.of(context).pushNamed(
-          //   RoutesPath.formView,
-          // );
           showModalBottomSheet(
             isScrollControlled: true,
             context: context,
             builder: (_) {
-              return const FormView();
+              return const FormView(
+                title: 'Insira sua nova despesa!',
+                isEditableText: false,
+              );
             },
           );
         },

@@ -1,4 +1,5 @@
 import 'package:despesas_pessoais/controllers/global_controller.dart';
+import 'package:despesas_pessoais/views/form_view.dart';
 import 'package:flutter/material.dart';
 
 import 'package:despesas_pessoais/data/data.dart';
@@ -77,7 +78,19 @@ class CardWidget extends StatelessWidget {
                     ),
                   ),
                   trailing: InkWell(
-                    onTap: () {},
+                    onTap: () {
+                      showModalBottomSheet(
+                        isScrollControlled: true,
+                        context: context,
+                        builder: (_) {
+                          return FormView(
+                            title: 'Edite sua despesa',
+                            isEditableText: true,
+                            index: index,
+                          );
+                        },
+                      );
+                    },
                     child: const Icon(
                       Icons.edit,
                       color: Colors.red,

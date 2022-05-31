@@ -1,10 +1,19 @@
-import 'dart:async';
-import 'package:despesas_pessoais/controllers/global_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import 'package:despesas_pessoais/controllers/global_controller.dart';
+
 class FormView extends StatefulWidget {
-  const FormView({Key? key}) : super(key: key);
+  final String? title;
+  final bool isEditableText;
+  final int? index;
+
+  const FormView({
+    Key? key,
+    required this.title,
+    required this.isEditableText,
+    this.index,
+  }) : super(key: key);
 
   @override
   State<FormView> createState() => _FormViewState();
@@ -46,9 +55,9 @@ class _FormViewState extends State<FormView> {
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
-                const Text(
-                  'Insira sua nova despesa!',
-                  style: TextStyle(
+                Text(
+                  widget.title!,
+                  style: const TextStyle(
                     fontWeight: FontWeight.bold,
                     fontSize: 18,
                   ),
@@ -104,15 +113,25 @@ class _FormViewState extends State<FormView> {
                   alignment: Alignment.centerRight,
                   child: ElevatedButton(
                     onPressed: () {
-                      if (_formKey.currentState!.validate()) {
-                        _formController.addToList(
-                          _nameController.text,
-                          double.parse(_priceController.text),
-                          _formController.selectedDate,
-                        );
-                        Timer(const Duration(milliseconds: 500), () {
+                      if (widget.isEditableText == false) {
+                        if (_formKey.currentState!.validate()) {
+                          _formController.addToList(
+                            _nameController.text,
+                            double.parse(_priceController.text),
+                            _formController.selectedDate,
+                          );
                           Navigator.of(context).pop();
-                        });
+                        }
+                      } else {
+                        if (_formKey.currentState!.validate()) {
+                          _formController.editItem(
+                            _nameController.text,
+                            widget.index!,
+                            double.parse(_priceController.text),
+                            _formController.selectedDate,
+                          );
+                          Navigator.of(context).pop();
+                        }
                       }
                     },
                     child: const Text('Nova transação'),

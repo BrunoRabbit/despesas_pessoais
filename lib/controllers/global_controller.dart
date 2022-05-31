@@ -11,6 +11,19 @@ class GlobalController extends ChangeNotifier {
   String newName = '';
   double newPrice = 0;
   String newData = '';
+  Transaction? transaction;
+
+  void editItem(
+    String editedName,
+    int index,
+    double editedPrice,
+    DateTime editedDate,
+  ) {
+    listTransaction[index].name = editedName;
+    listTransaction[index].price = editedPrice;
+    listTransaction[index].date = editedDate;
+    notifyListeners();
+  }
 
   Future<void> selectDate(BuildContext context) async {
     showDatePicker(
