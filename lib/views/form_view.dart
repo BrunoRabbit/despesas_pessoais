@@ -134,7 +134,11 @@ class _FormViewState extends State<FormView> {
                         }
                       }
                     },
-                    child: const Text('Nova transação'),
+                    child: Text(
+                      widget.isEditableText
+                          ? 'Aplicar alterações'
+                          : 'Nova transação',
+                    ),
                   ),
                 ),
               ],
