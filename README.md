@@ -10,7 +10,6 @@ _but i made some changes_
 
 
 + And i am studying now and planning to elaborate and apply this features:
-    - Unit tests
     - Dark and Light theme
 
 ## Clone Project
