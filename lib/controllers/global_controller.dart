@@ -30,7 +30,6 @@ class GlobalController extends ChangeNotifier {
       context: context,
       initialDate: selectedDate,
       firstDate: DateTime(2015, 7),
-      // firstDate: DateTime(2015, 8),
       lastDate: DateTime.now(),
     ).then((pickedDate) {
       if (pickedDate == null) {

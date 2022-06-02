@@ -1,7 +1,9 @@
 import 'package:despesas_pessoais/controllers/global_controller.dart';
+import 'package:despesas_pessoais/controllers/theme_controller.dart';
 import 'package:despesas_pessoais/data/data.dart';
 import 'package:despesas_pessoais/views/form_view.dart';
 import 'package:despesas_pessoais/widgets/card_widget.dart';
+import 'package:despesas_pessoais/widgets/change_theme_button.dart';
 import 'package:despesas_pessoais/widgets/chart_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -16,9 +18,17 @@ class HomeView extends StatefulWidget {
 class _HomeViewState extends State<HomeView> {
   @override
   Widget build(BuildContext context) {
+    final themeProvider = Provider.of<ThemeController>(context);
+
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Despesas Pessoais'),
+        backgroundColor: Theme.of(context).primaryColor,
+        title: const Text(
+          'Despesas Pessoais',
+        ),
+        actions: const [
+          ChangeThemeButton(),
+        ],
       ),
       body: Consumer<GlobalController>(
         builder: (context, value, child) {
@@ -50,7 +60,11 @@ class _HomeViewState extends State<HomeView> {
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       floatingActionButton: FloatingActionButton(
-        child: const Icon(Icons.add),
+        backgroundColor: themeProvider.isDarkMode ? Colors.cyan : Colors.purple,
+        child: Icon(
+          Icons.add,
+          color: themeProvider.isDarkMode ? Colors.black87 : Colors.white,
+        ),
         onPressed: () {
           showModalBottomSheet(
             isScrollControlled: true,

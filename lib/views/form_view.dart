@@ -1,3 +1,4 @@
+import 'package:despesas_pessoais/controllers/theme_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -41,6 +42,7 @@ class _FormViewState extends State<FormView> {
   @override
   Widget build(BuildContext context) {
     final _formController = Provider.of<GlobalController>(context);
+    final themeProvider = Provider.of<ThemeController>(context);
 
     _formController.newData =
         _formController.formatData.format(_formController.selectedDate);
@@ -68,6 +70,9 @@ class _FormViewState extends State<FormView> {
                 TextFormField(
                   controller: _nameController,
                   decoration: const InputDecoration(
+                    errorStyle: TextStyle(
+                      fontWeight: FontWeight.w500,
+                    ),
                     border: OutlineInputBorder(),
                     hintText: 'Titulo',
                   ),
@@ -83,6 +88,9 @@ class _FormViewState extends State<FormView> {
                   controller: _priceController,
                   keyboardType: TextInputType.number,
                   decoration: const InputDecoration(
+                    errorStyle: TextStyle(
+                      fontWeight: FontWeight.w500,
+                    ),
                     border: OutlineInputBorder(),
                     hintText: 'Valor (R\$)',
                   ),
@@ -104,6 +112,11 @@ class _FormViewState extends State<FormView> {
                     ),
                     const Spacer(),
                     TextButton(
+                      style: TextButton.styleFrom(
+                        primary: themeProvider.isDarkMode
+                            ? Colors.cyan
+                            : Colors.purple,
+                      ),
                       onPressed: () => _formController.selectDate(context),
                       child: const Text('Selecionar data'),
                     ),
@@ -112,6 +125,11 @@ class _FormViewState extends State<FormView> {
                 Align(
                   alignment: Alignment.centerRight,
                   child: ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      primary: themeProvider.isDarkMode
+                          ? Colors.cyan
+                          : Colors.purple,
+                    ),
                     onPressed: () {
                       if (widget.isEditableText == false) {
                         if (_formKey.currentState!.validate()) {
